@@ -1,6 +1,8 @@
-const movSound = new Audio("move.mp3");
+
+const moveSound = new Audio("move.mp3");
 const eatSound = new Audio("eat.mp3");
 const winSound = new Audio("win.mp3");
+let isGameEnd=false;
 let isWin=false;
 const UnicornId = document.getElementById('Unicorn');
 const jaiId = document.getElementById('jai');
@@ -8,8 +10,9 @@ const gameArea = document.getElementById('gameArea');
 let score = 0;
 
 const moveUnicorn = (event) => {
+    if(isGameEnd) return;
     const key = event.key;
-    const step = 10;
+    const step = 50;
     const maxX = gameArea.clientWidth - UnicornId.offsetWidth;
     const maxY = gameArea.clientHeight - UnicornId.offsetHeight;
 
@@ -21,26 +24,26 @@ const moveUnicorn = (event) => {
         case 'ArrowUp':
         case 'w':
             newTop -= step;
-            movSound.currentTime = 0;
-            movSound.play();
+            moveSound.currentTime = 0;
+            moveSound.play();
             break;
         case 'ArrowDown':
         case 's':
             newTop += step;
-             movSound.currentTime = 0;
-            movSound.play();
+             moveSound.currentTime = 0;
+            moveSound.play();
             break;
         case 'ArrowLeft':
         case 'a':
             newLeft -= step;
-             movSound.currentTime = 0;
-            movSound.play();
+             moveSound.currentTime = 0;
+            moveSound.play();
             break;
         case 'ArrowRight':
         case 'd':
             newLeft += step;
-             movSound.currentTime = 0;
-            movSound.play();
+             moveSound.currentTime = 0;
+            moveSound.play();
             break;
         case ' ':
             jaiJump();
@@ -89,8 +92,9 @@ function eatjai() {
     }
 }
 function checkWin() {
-    if (score >= 5 && !isWin) {
+    if (score >= 20 && !isWin) {
         isWin = true;
+        isGameEnd=true;
         
         // 🔹 สร้างกล่องรวม (ไว้ใส่รูป + ข้อความ)
         winSound.play();
@@ -110,13 +114,52 @@ function checkWin() {
         const text = document.createElement("h2");
         text.innerText = "🎉ເຢ້!!!!!ນີ້ຄືລາງວັນຄົນໂສດ🎉 ";
         text.style.color = "red";
+        const btn = document.createElement("button");
+        btn.innerText="ເລ່ນອີກກກກ";
+        btn.style.fontSize="20px";
+        btn.style.padding="10px";
+        btn.onclick=()=>location.reload();
 
         // 🔹 เอาทั้งหมดรวมกัน
         winBox.appendChild(winImg);
         winBox.appendChild(text);
+        winBox.appendChild(btn);
 
         gameArea.appendChild(winBox);
     }
+}
+function move(dir) {
+    if(isGameEnd) return;
+    const step = 50;
+
+    const maxX = gameArea.clientWidth - UnicornId.offsetWidth;
+    const maxY = gameArea.clientHeight - UnicornId.offsetHeight;
+
+    let newTop = UnicornId.offsetTop;
+    let newLeft = UnicornId.offsetLeft;
+ if (dir === "up" || dir === "down" || dir === "left" || dir === "right") {
+        moveSound.currentTime = 0;
+        moveSound.play();
+    }
+    if (dir === "up") newTop -= step;
+    if (dir === "down") newTop += step;
+    if (dir === "left") newLeft -= step;
+    if (dir === "right") newLeft += step;
+    if (dir === "jump") {
+        jaiJump();
+        return;
+    }
+
+    // กันออกขอบ
+    if (newTop < 0) newTop = 0;
+    if (newLeft < 0) newLeft = 0;
+    if (newTop > maxY) newTop = maxY;
+    if (newLeft > maxX) newLeft = maxX;
+
+    UnicornId.style.top = newTop + "px";
+    UnicornId.style.left = newLeft + "px";
+
+    eatjai();
 }
 
 document.addEventListener('keydown', moveUnicorn);
