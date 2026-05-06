@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unicorn Game</title>
     <style>
-        
+        #controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+h2{
+     font-family: "Phetsarath OT";
+    font-size: 20px;
+}
+button{
+    background-color: brown;
+    color: rgb(68, 255, 0);
+    font-family: "Phetsarath OT";
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#controls button {
+    font-size: 30px;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+}
         body {
             background-image: url("mon.jpeg");
             background-size: cover;
@@ -59,13 +83,22 @@
     </style>
 </head>
 <body>
-    <h1>ຮອດ 5 ມີລາງວັນສຸດພິເສດ</h1>
+    <h1>ຮອດ 20 ມີລາງວັນສຸດພິເສດ</h1>
     <div id="gameArea">
         <div id="scoreboard">Score: <span id="score">0</span></div>
         <span id="Unicorn">🦄</span>
         <span id="jai">💖</span>
     </div>
+<div id="controls">
+    <button onclick="move('up')">⬆️</button><br>
 
+    <button onclick="move('left')">⬅️</button>
+    <button onclick="move('down')">⬇️</button>
+    <button onclick="move('right')">➡️</button>
+
+
+</div>
     <script src="game.js"></script>
 </body>
+
 </html>
