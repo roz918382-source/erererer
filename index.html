@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicorn Game</title>
+    <style>
+        
+        body {
+            background-image: url("mon.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        h1{
+            font-family: "Phetsarath OT";
+            color: aqua;
+            margin: 20px;
+        }
+
+        /* พื้นที่เกม */
+        #gameArea {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background: #b3ffb3;
+            border: 5px solid #008000;
+            overflow: hidden;
+        }
+
+        #Unicorn {
+            position: absolute;
+            font-size: 25px;
+            top: 100px;
+            left: 100px;
+        }
+
+        #jai {
+            position: absolute;
+            font-size: 25px;
+            top: 200px;
+            left: 200px;
+        }
+
+        #scoreboard {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>ຮອດ 5 ມີລາງວັນສຸດພິເສດ</h1>
+    <div id="gameArea">
+        <div id="scoreboard">Score: <span id="score">0</span></div>
+        <span id="Unicorn">🦄</span>
+        <span id="jai">💖</span>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
